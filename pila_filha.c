@@ -8,22 +8,17 @@ static int num_nos;
 ///////////////////
 
 void criar_f(t_conjunto *conjunto) {
-
 	conjunto->primeiro = NULL;
 	conjunto->ultimo = NULL;
 }
 
 int enfileirar(t_conjunto *conjunto, t_elemento elemento) {
-
 	t_apontador novo;
-    novo = (t_apontador) malloc(sizeof(t_no));
-
+    	novo = (t_apontador) malloc(sizeof(t_no));
 	if (novo == NULL)
 		return ERRO_CHEIA;
-
 	novo->elemento = elemento;
 	novo->proximo = NULL;
-	
 	if (vazia_f(conjunto)) {
 		conjunto->primeiro = novo;
 	} 
@@ -35,19 +30,16 @@ int enfileirar(t_conjunto *conjunto, t_elemento elemento) {
 	return 0;
 }
 int desenfileirar(t_conjunto *conjunto, t_elemento elemento) {
-    //Função para remover elementos da fila (FIFO)
-
-
+    	//Função para remover elementos da fila (FIFO)
 	if (vazia_f(conjunto)){
 		return 1;
-    }
+    	}
 	if (conjunto->primeiro->elemento.chave != elemento.chave) {//elemento não existe
-    	return 1;
+    		return 1;
   	}
 	if (conjunto->primeiro == conjunto->ultimo){ // unitaria
 		conjunto->ultimo = NULL;
-    }
-
+    	}
 	t_apontador aux = conjunto->primeiro;
 	conjunto->primeiro = conjunto->primeiro->proximo;
 	free(aux);
@@ -58,7 +50,7 @@ int desenfileirar(t_conjunto *conjunto, t_elemento elemento) {
 int vazia_f(t_conjunto *conjunto) {
 	if(conjunto->primeiro == NULL && conjunto->ultimo == NULL){
 		return 1;
-    }
+    	}
 	else{
 		return 0;
     }
@@ -73,7 +65,7 @@ void criar_p(t_conjunto *conjunto) {
 int empilhar(t_conjunto *conjunto, t_elemento elemento) {
 
 	t_apontador novo;
-    novo = (t_apontador) malloc(sizeof(t_no));
+    	novo = (t_apontador) malloc(sizeof(t_no));
 	if (novo == NULL)
 		return ERRO_CHEIA;
 	novo->elemento = elemento;
@@ -109,12 +101,12 @@ int vazia_p(t_conjunto *conjunto) {
 		return 0;
 }
 void libera_f(t_conjunto *conjunto) {//liberando fila
-  t_apontador P = conjunto->primeiro;
-  while (P != NULL) {
-    conjunto->primeiro = P->proximo;
-	free(P);
-    P = conjunto->primeiro;
-  }
+  	t_apontador P = conjunto->primeiro;
+  	while (P != NULL) {
+    		conjunto->primeiro = P->proximo;
+		free(P);
+    		P = conjunto->primeiro;
+  	}
 }
 void libera_p(t_conjunto *conjunto) {//liberando pilha
   /*t_apontador P = conjunto->topo;
