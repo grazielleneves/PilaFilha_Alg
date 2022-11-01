@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static int num_nos;
 ///////////////////
 //////FILA/////////
 ///////////////////
@@ -33,8 +34,6 @@ int enfileirar(t_conjunto *conjunto, t_elemento elemento) {
 
 	return 0;
 }
-
-
 int desenfileirar(t_conjunto *conjunto, t_elemento elemento) {
     //Função para remover elementos da fila (FIFO)
 
@@ -69,40 +68,38 @@ int vazia_f(t_conjunto *conjunto) {
 ///////////////////
 void criar_p(t_conjunto *conjunto) {
 	conjunto->topo = NULL;
+	num_nos = 0;
 }
-
 int empilhar(t_conjunto *conjunto, t_elemento elemento) {
 
 	t_apontador novo;
     novo = (t_apontador) malloc(sizeof(t_no));
-
 	if (novo == NULL)
 		return ERRO_CHEIA;
-
 	novo->elemento = elemento;
 	novo->proximo = conjunto->topo;
 	conjunto->topo = novo;
-	
-	//num_nos++;
 
-	return 0;
+	num_nos++;
 
+	return SUCESSO;
 }
 
-
-int desempilhar(t_conjunto *conjunto, t_elemento elemento) {
+int desempilhar(t_conjunto *conjunto) {
 
 	if (vazia_p(conjunto)){
-		return 1;
+		return NAO_ENCONTROU;
     }
-    if(conjunto->topo->elemento.chave != elemento.chave){
-        return 1;
-    }
-
+    //if(conjunto->topo->elemento.chave != elemento.chave){
+        //return 1;
+    //}
 	t_apontador aux = conjunto->topo;
+	int elem = aux->elemento.chave;
 	conjunto->topo = conjunto->topo->proximo;
 	free(aux);
-	return 0;
+
+	num_nos--;
+	return elem;
 }
 
 int vazia_p(t_conjunto *conjunto) {
@@ -120,10 +117,13 @@ void libera_f(t_conjunto *conjunto) {//liberando fila
   }
 }
 void libera_p(t_conjunto *conjunto) {//liberando pilha
-  t_apontador P = conjunto->topo;
+  /*t_apontador P = conjunto->topo;
   while (P != NULL) {
     conjunto->topo = P->proximo;
     free(P);
     P = conjunto->topo;
-  }
+  }*/
+	for(int i = num_nos; i > 0; i--){
+		desempilhar(conjunto);
+	}		
 }
