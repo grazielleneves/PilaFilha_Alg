@@ -11,12 +11,14 @@ int main() {
     int r_pilha, r_fila, erro_fila=0, erro_pilha=0;
     char op;
 
-    criar_f(&fila);
-    criar_p(&pilha);
+    //criar_f(&fila);
+    //criar_p(&pilha);
     scanf("%d", &nc);
     int vet[nc];
     for (i = 0; i < nc; i++) {
         scanf("%d", &nop);
+        criar_f(&fila);
+        criar_p(&pilha);
         for (j = 0; j < nop; j++) {
             scanf(" %c %d", &op, &e.chave);
             if(op=='i'){
@@ -25,8 +27,14 @@ int main() {
                 //break;
             }
             else if(op=='r'){
-                r_pilha = desempilhar(&pilha, e);
+                r_pilha = desempilhar(&pilha);
+                if(r_pilha != e.chave){
+                    erro_pilha = 1;
+                }
                 r_fila = desenfileirar(&fila, e);
+                //if(r_fila != e.chave){
+                    //erro_fila = 1;
+                //}
                 //break;
                 /*if(r_pilha != e.chave){
                     erro_pilha = 1;
@@ -51,22 +59,22 @@ int main() {
         printf("caso %d: %d\n", i, r_fila);
         printf("caso %d: %d\n", i, erro_fila);
         printf("caso %d: %d\n", i, erro_pilha);
-        if (r_fila == 0 && r_pilha == 0) {
+        if (r_fila == 1 && erro_pilha == 1){
             //caso impossível
             printf("impossível");
             break;
         } 
-        else if (r_pilha == 0) {
+        else if(erro_pilha == 0 && r_fila == 1) {
             // pilha
             printf("pilha");
             break;
         }
-        else if (r_fila == 0) {
+        else if (r_fila == 0 && erro_pilha == 1){
             // fila
             printf("fila");
             break;
         }
-        else { 
+        else if(erro_pilha == 0 && r_fila == 0){ 
             //indefinido 
             printf("indefinido");
             break;
@@ -76,8 +84,8 @@ int main() {
         libera_p(&pilha);
 
         //cria-se novas ED
-        criar_f(&fila);
-        criar_p(&pilha);
+        //criar_f(&fila);
+        //criar_p(&pilha);
         erro_fila = 0;
         erro_pilha = 0;
   
