@@ -1,6 +1,8 @@
 #ifndef PILAFILHA_H
 #define PILAFILHA_H
-#define ERRO_CHEIA -1
+#define NAO_ENCONTROU -1
+#define ERRO_CHEIA 0
+#define SUCESSO 1
 
 // valor do elemento
 typedef int t_chave;
@@ -35,7 +37,7 @@ void libera_f(t_conjunto *conjunto);
 // PILHA
 void criar_p(t_conjunto *conjunto);
 int empilhar(t_conjunto *conjunto, t_elemento elemento);
-int desempilhar(t_conjunto *conjunto, t_elemento elemento);
+int desempilhar(t_conjunto *conjunto);
 int vazia_p(t_conjunto *conjunto);
 void libera_p(t_conjunto *conjunto);
 
